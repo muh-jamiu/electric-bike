@@ -256,7 +256,7 @@
 } */
 
 .table .bike_status{
-    background-color: rgba(255, 0, 0, 0.074);
+    background-color: rgba(0, 255, 128, 0.074);
     border-radius: 10px;
     font-size: 10px;
     padding: .3em .6em;
@@ -264,7 +264,7 @@
     margin: auto auto;
     position: relative;
     padding-left: 1.5em;
-    color: red;
+    color: green;
 }
 
 .dpd{
@@ -292,7 +292,7 @@ td{
 .table .dot{
     width: 7px;
     height: 7px;
-    background-color: red;
+    background-color: green;
     border-radius: 50%;
     position: absolute;
     left: 0;
