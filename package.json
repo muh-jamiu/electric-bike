@@ -10,17 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "axios": "^1.6.2",
-    "chart.js": "^4.4.0",
+    "chart.js": "^4.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
+    "react": "^18.3.1",
     "react-analytics-charts": "^1.2.14",
     "react-chartjs-2": "^5.2.0",
     "react-cookie": "^6.1.1",
+    "react-dom": "^18.3.1",
     "react-flatpickr": "^3.10.13",
     "react-number-format": "^5.3.1",
     "react-router-dom": "^6.22.1"

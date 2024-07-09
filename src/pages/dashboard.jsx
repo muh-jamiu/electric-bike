@@ -7,6 +7,8 @@ import NavBar from '../components/navBar';
 import loader from "../../public/img/loader.gif"
 import { CookiesProvider, useCookies } from "react-cookie";
 import Cookies from 'js-cookie';
+import { Bar } from 'react-chartjs-2';
+import Chart from 'chart.js/auto';
 
 export default function Dashboard() {
     document.title = 'Admin Panel | Dashboard';
@@ -15,10 +17,46 @@ export default function Dashboard() {
     const [loading, setloading] = useState(true)
     const [cookie, setCookie, removeCookie] = useCookies("")
 
-    if(!cookie.user){
+    if (!cookie.user) {
         window.location.href = "/"
     }
     const user_data = JSON.parse(Cookies.get('user'))
+
+    const chartRef = useRef(null);
+
+    useEffect(() => {
+        const chartInstance = chartRef.current;
+
+        return () => {
+            // Cleanup on component unmount
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+        };
+    }, []);
+
+    const data = {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [
+            {
+                label: 'Number of Rentals',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(75, 192, 192, 0.4)',
+                hoverBorderColor: 'rgba(75, 192, 192, 1)',
+                data: [65, 59, 80, 81, 56, 55, 40],
+            },
+        ],
+    };
+
+    const options = {
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+    };
 
     useEffect(() => {
 
@@ -118,10 +156,8 @@ export default function Dashboard() {
                                     <h4 className="fw-bold">0</h4>
                                 </div>
                             </div>
-
-                            <div className="chart">
-
-                            </div>
+                            <br />
+                            <Bar ref={chartRef} data={data} options={options} />
 
                             <div className="chart">
 
