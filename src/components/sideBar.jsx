@@ -21,6 +21,15 @@ export default function SideBar({isAuthenticated}) {
           else if(page == "user management"){
             links[3].classList.add("active")
           }
+          else if(page == "payments"){
+            links[4].classList.add("active")
+          }
+          else if(page == "notifications"){
+            links[5].classList.add("active")
+          }
+          else if(page == "settings"){
+            links[6].classList.add("active")
+          }
         })
     }, [])
 
@@ -43,13 +52,13 @@ export default function SideBar({isAuthenticated}) {
                         <li className="list-unstyled side_link"><Link to="/user-management" className="text-decoration-none link">
                             <i class="fa-solid fa-users"></i> User Management
                         </Link></li>
-                        <li className="list-unstyled side_link"><Link to="" className="text-decoration-none link">
+                        <li className="list-unstyled side_link"><Link to="/payments" className="text-decoration-none link">
                             <i class="fa-solid fa-cash-register"></i> Payments
                         </Link></li>
-                        <li className="list-unstyled side_link"><Link to="" className="text-decoration-none link">
+                        <li className="list-unstyled side_link"><Link to="/notifications" className="text-decoration-none link">
                             <i class="fa-regular fa-bell"></i> Notifications
                         </Link></li>
-                        <li className="list-unstyled side_link"><Link to="" className="text-decoration-none link">
+                        <li className="list-unstyled side_link"><Link to="/settings" className="text-decoration-none link">
                             <i class="fa-solid fa-gears"></i> Settings
                         </Link></li>
                     </div>
