@@ -317,6 +317,31 @@ td{
     color: white !important;
 }
 
+#createBikeModal input::placeholder{
+    font-size: 12px;
+}
+
+#createBikeModal input:focus{
+    border: 1px solid var(--primary);
+    transition: .1s;
+}
+
+#createBikeModal input{
+    transition: .1s;
+    width: 100%;
+    padding: .6em;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 1em;
+    background-color: whitesmoke;
+    outline: none;
+}
+
+#createBikeModal label{
+    font-size: 12px;
+    margin-bottom: .5em;
+}
+
 .m_submit{
     display: none;
 }

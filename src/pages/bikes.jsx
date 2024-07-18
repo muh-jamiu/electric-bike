@@ -127,12 +127,13 @@ export default function Bikes() {
                                                         <td className=''><div className="bike_status"><div className="dot"></div>Active</div></td>
                                                         <td>none</td>
                                                         <td><div className="table_act">
-                                                            <div class="dropdown dpd">
+                                                            <div class="dropdown">
                                                             <i class="fa-solid fa-ellipsis" data-bs-toggle="dropdown"></i>
-                                                                <ul class="dropdown-menu dpd bg-dark">
-                                                                    <li onClick={deleteBike}><h5 class="dropdown-header mt-3 ft mb-3 btn text-white mx-2 btn-danger">Delete</h5></li>
-                                                                    <li><h5 class="dropdown-header ft mb-3 btn text-white mx-2 btn-primary">Edit</h5></li>
-                                                                    <li><h5 class="dropdown-header ft mb-3 btn text-white mx-2 btn-info">Change Status</h5></li>
+                                                                <ul class="dropdown-menu bg-light">
+                                                                    <li><h5 class="dropdown-header ft mb-1 text-muted">Edit</h5></li>
+                                                                    <li><h5 class="dropdown-header ft mb-1 text-muted">Change Status</h5></li>
+                                                                    <hr />
+                                                                    <li onClick={deleteBike}><h5 class="dropdown-header mt-3 ft mb-3 btn text-white mx-2 btn-danger">Delete Bike</h5></li>
                                                                 </ul>
                                                             </div>
                                                         </div></td>
@@ -156,18 +157,29 @@ export default function Bikes() {
 
 
                         <div class="modal-header">
-                            <h4 class="modal-title">Modal Heading</h4>
+                            <div>
+                            <h6 class="modal-title">Add New Bike</h6>
+                            <p className="text-muted ft">Enter the details of the new bike to add it to the inventory.</p>
+                            </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
 
                         <div class="modal-body">
-                            Modal body..
+                           <label htmlFor="">Bike ID</label>
+                           <input type="text" placeholder='Enter bike ID' />
+
+                           <label htmlFor="">Bike Status</label>
+                           <input type="text" placeholder='Enter bike status' />
+
+                           <label htmlFor="">Bike Station</label>
+                           <input type="text" placeholder='Enter bike station' />
                         </div>
 
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn px-4 ft btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn bg ft text-white px-4" data-bs-dismiss="modal">Save</button>
                         </div>
 
                     </div>
