@@ -321,6 +321,7 @@ td{
     font-size: 12px;
 }
 
+
 #createBikeModal input:focus{
     border: 1px solid var(--primary);
     transition: .1s;
@@ -345,6 +346,10 @@ td{
 .m_submit{
     display: none;
 }
+
+/* .createBikeInput.errors{
+    border: 1px solid red !important;
+} */
 
 @media screen and (max-width: 680px) {
     .notFound{

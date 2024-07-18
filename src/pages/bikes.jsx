@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SideBar from '../components/sideBar'
 import NavBar from '../components/navBar';
 import axios from '../utils/axios';
@@ -10,6 +10,9 @@ export default function Bikes() {
     const [bikes, setBikes] = useState([])
     const [loading, setloading] = useState(true)
     const [cookie, setCookie, removeCookie] = useCookies("")
+    const bikeId = useRef("")
+    const bikeStatus = useRef("")
+    const bikeStation = useRef("")
 
     if (!cookie.user) {
         window.location.href = "/"
@@ -19,7 +22,7 @@ export default function Bikes() {
         axios.post("/bike")
             .then(
                 res => {
-                    console.log(res)
+                    // console.log(res)
                     setBikes(res.data.Bikes)
                     setloading(false)
                 }
@@ -32,26 +35,57 @@ export default function Bikes() {
 
     const deleteBike = () => {
         axios.post("/delete-bike")
-        .then(
-            res => {
-                console.log(res)
-            }
-        )
-        .catch(error => {
-            console.log(error)
-        })
+            .then(
+                res => {
+                    console.log(res)
+                }
+            )
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     const EditBike = () => {
         axios.post("/edit-bike")
-        .then(
-            res => {
-                console.log(res)
-            }
-        )
-        .catch(error => {
-            console.log(error)
+            .then(
+                res => {
+                    console.log(res)
+                }
+            )
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const createBike = () => {
+        console.log(bikeId.current.value, bikeStatus.current.value, bikeStation.current.value)
+        if (!bikeId.current.value || !bikeStatus.current.value || !bikeStation.current.value) {
+            var errors_p = document.querySelector(".errors_p")
+            errors_p.classList.remove("d-none")
+            return
+        }
+
+        var errors_p = document.querySelector(".errors_p")
+        errors_p.classList.add("d-none")
+
+        var button_submit = document.querySelector(".button_submit")
+        button_submit.innerHTML = `<div class="spinner-border spinner-border-sm text-white"></div>`
+
+        axios.post("/bike/create", {
+            BikeCode: bikeId.current.value,
+            status: bikeStatus.current.value,
+            station: bikeStation.current.value,
         })
+            .then(
+                res => {
+                    button_submit.innerHTML = "Save"
+                    console.log(res)
+                }
+            )
+            .catch(error => {
+                button_submit.innerHTML = "Save"
+                console.log(error)
+            })
     }
 
     return (
@@ -123,12 +157,12 @@ export default function Bikes() {
                                             <tbody>
                                                 {bikes.map(val => {
                                                     return (<tr>
-                                                        <td>{val._id}</td>
-                                                        <td className=''><div className="bike_status"><div className="dot"></div>Active</div></td>
-                                                        <td>none</td>
+                                                        <td>{val.BikeCode ?? "N/A"}</td>
+                                                        <td className=''><div className="bike_status text-capitalize"><div className="dot"></div>{val.status}</div></td>
+                                                        <td className='text-capitalize'>{val.station}</td>
                                                         <td><div className="table_act">
                                                             <div class="dropdown">
-                                                            <i class="fa-solid fa-ellipsis" data-bs-toggle="dropdown"></i>
+                                                                <i class="fa-solid fa-ellipsis" data-bs-toggle="dropdown"></i>
                                                                 <ul class="dropdown-menu bg-light">
                                                                     <li><h5 class="dropdown-header ft mb-1 text-muted">Edit</h5></li>
                                                                     <li><h5 class="dropdown-header ft mb-1 text-muted">Change Status</h5></li>
@@ -158,28 +192,29 @@ export default function Bikes() {
 
                         <div class="modal-header">
                             <div>
-                            <h6 class="modal-title">Add New Bike</h6>
-                            <p className="text-muted ft">Enter the details of the new bike to add it to the inventory.</p>
+                                <h6 class="modal-title">Add New Bike</h6>
+                                <p className="text-muted ft">Enter the details of the new bike to add it to the inventory.</p>
                             </div>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
 
                         <div class="modal-body">
-                           <label htmlFor="">Bike ID</label>
-                           <input type="text" placeholder='Enter bike ID' />
+                            <label htmlFor="">Bike ID</label>
+                            <input ref={bikeId} className='createBikeInput' type="text" placeholder='Enter bike ID' />
 
-                           <label htmlFor="">Bike Status</label>
-                           <input type="text" placeholder='Enter bike status' />
+                            <label htmlFor="">Bike Status</label>
+                            <input ref={bikeStatus} className='createBikeInput' type="text" placeholder='Enter bike status' />
 
-                           <label htmlFor="">Bike Station</label>
-                           <input type="text" placeholder='Enter bike station' />
+                            <label htmlFor="">Bike Station</label>
+                            <input ref={bikeStation} className='createBikeInput' type="text" placeholder='Enter bike station' />
+                            <p className="ft errors_p d-none text-danger mt-2">* All field must be provided</p>
                         </div>
 
 
                         <div class="modal-footer">
                             <button type="button" class="btn px-4 ft btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn bg ft text-white px-4" data-bs-dismiss="modal">Save</button>
+                            <button onClick={createBike} type="button" class="btn btn-success button_submit bg ft text-white px-4">Save</button>
                         </div>
 
                     </div>
