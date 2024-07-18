@@ -38,7 +38,6 @@ export default function Login() {
             .then(
                 res => {
                     console.log(res)
-                    submit.innerHTML = "Login"
                     setCookie("user", res.data.user)
                     Swal.fire({
                         position: "top-end",
