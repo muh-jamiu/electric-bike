@@ -33,16 +33,39 @@ export default function Bikes() {
             })
     }, [bikes])
 
-    const deleteBike = () => {
-        axios.post("/delete-bike")
-            .then(
-                res => {
-                    console.log(res)
-                }
-            )
-            .catch(error => {
-                console.log(error)
-            })
+    const postDelete = (id) => {
+        axios.post("/bike/delete", {
+            id: id
+        })
+        .then(
+            res => {
+                console.log(res)
+            }
+        )
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
+    const deleteBike = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                postDelete(id)
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Bike has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
     }
 
     const EditBike = () => {
@@ -79,11 +102,35 @@ export default function Bikes() {
             .then(
                 res => {
                     button_submit.innerHTML = "Save"
+                    bikeStation.current.value = ""
+                    bikeStatus.current.value = ""
+                    bikeId.current.value = ""
                     console.log(res)
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Bikes was created successfully"
+                    });
                 }
             )
             .catch(error => {
                 button_submit.innerHTML = "Save"
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
                 console.log(error)
             })
     }
@@ -157,7 +204,7 @@ export default function Bikes() {
                                             <tbody>
                                                 {bikes.map(val => {
                                                     return (<tr>
-                                                        <td>{val.BikeCode ?? "N/A"}</td>
+                                                        <td className='text-uppercase'>{val.BikeCode ?? "N/A"}</td>
                                                         <td className=''><div className="bike_status text-capitalize"><div className="dot"></div>{val.status}</div></td>
                                                         <td className='text-capitalize'>{val.station}</td>
                                                         <td><div className="table_act">
@@ -167,7 +214,7 @@ export default function Bikes() {
                                                                     <li><h5 class="dropdown-header ft mb-1 text-muted">Edit</h5></li>
                                                                     <li><h5 class="dropdown-header ft mb-1 text-muted">Change Status</h5></li>
                                                                     <hr />
-                                                                    <li onClick={deleteBike}><h5 class="dropdown-header mt-3 ft mb-3 btn text-white mx-2 btn-danger">Delete Bike</h5></li>
+                                                                    <li onClick={() => deleteBike(val._id)}><h5 class="dropdown-header mt-3 ft mb-3 btn text-white mx-2 btn-danger">Delete Bike</h5></li>
                                                                 </ul>
                                                             </div>
                                                         </div></td>
