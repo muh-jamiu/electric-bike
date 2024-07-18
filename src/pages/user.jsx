@@ -30,6 +30,41 @@ export default function User() {
             })
     }, [users])
 
+    const postDelete = (id) => {
+        axios.post("/user/delete-user", {
+            id: id
+        })
+        .then(
+            res => {
+                console.log(res)
+            }
+        )
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
+    const deleteUser = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete user!"
+        }).then((result) => {
+            postDelete(id)
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "User has been deleted.",
+                    icon: "success"
+                });
+            }
+        });
+    }
+
     return (
         <div className="dashbord bikes bg-white">
             <div className="d-flex">
@@ -99,7 +134,18 @@ export default function User() {
                                                         <td>{user.phone}</td>
                                                         <td>None</td>
                                                         <td className=''><div className="bike_status"><div className="dot"></div>Active</div></td>
-                                                        <td><div className="table_act"><i class="fa-solid fa-ellipsis"></i></div></td>
+                                                        <td>
+                                                        <div className="table_act">
+                                                            <div class="dropdown">
+                                                                <i class="fa-solid fa-ellipsis" data-bs-toggle="dropdown"></i>
+                                                                <ul class="dropdown-menu bg-light">
+                                                                    <li><h5 class="dropdown-header mt-2 ft mb-1 text-muted">Block User</h5></li>
+                                                                    <hr />
+                                                                    <li onClick={() => deleteUser(user._id)}><h5 class="dropdown-header mt-3 ft mb-3 btn text-white mx-2 btn-danger">Delete User</h5></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        </td>
                                                     </tr>
                                                 )
                                             })
