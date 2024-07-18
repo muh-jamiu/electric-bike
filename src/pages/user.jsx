@@ -54,8 +54,8 @@ export default function User() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete user!"
         }).then((result) => {
-            postDelete(id)
             if (result.isConfirmed) {
+                postDelete(id)
                 Swal.fire({
                     title: "Deleted!",
                     text: "User has been deleted.",
