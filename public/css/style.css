@@ -317,17 +317,17 @@ td{
     color: white !important;
 }
 
-#createBikeModal input::placeholder{
+.bike_modal input::placeholder{
     font-size: 12px;
 }
 
 
-#createBikeModal input:focus{
+.bike_modal input:focus{
     border: 1px solid var(--primary);
     transition: .1s;
 }
 
-#createBikeModal input{
+.bike_modal input{
     transition: .1s;
     width: 100%;
     padding: .6em;
@@ -338,7 +338,7 @@ td{
     outline: none;
 }
 
-#createBikeModal label{
+.bike_modal label{
     font-size: 12px;
     margin-bottom: .5em;
 }

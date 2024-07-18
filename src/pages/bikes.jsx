@@ -9,6 +9,10 @@ export default function Bikes() {
     document.title = 'Bike Inventory | Dashboard';
     const [bikes, setBikes] = useState([])
     const [loading, setloading] = useState(true)
+    const [bike_id, setbike_id] = useState("")
+    const [bike_station, setbike_station] = useState("")
+    const [bike_status, setbike_status] = useState("")
+    const [__bikeID__, set__bikeID__] = useState("")
     const [cookie, setCookie, removeCookie] = useCookies("")
     const bikeId = useRef("")
     const bikeStatus = useRef("")
@@ -68,14 +72,64 @@ export default function Bikes() {
         });
     }
 
+    const setSingleBike = (id, station, status, ID) => {
+        setbike_id(id)
+        setbike_station(station)
+        setbike_status(status)
+        set__bikeID__(ID)
+    }
+
     const EditBike = () => {
-        axios.post("/edit-bike")
+        if (!bikeId.current.value || !bikeStatus.current.value || !bikeStation.current.value) {
+            var errors_p = document.querySelector(".errors_p")
+            errors_p.classList.remove("d-none")
+            return
+        }
+
+        var errors_p = document.querySelector(".errors_p")
+        errors_p.classList.add("d-none")
+
+        var button_submit = document.querySelector(".button_submit2")
+        button_submit.innerHTML = `<div class="spinner-border spinner-border-sm text-white"></div>`
+
+        axios.post("/bike/update", {
+            bikeCode: bikeId.current.value,
+            status: bikeStatus.current.value,
+            station: bikeStation.current.value,
+            id: __bikeID__
+        })
             .then(
                 res => {
+                    button_submit.innerHTML = "Save"
+                    bikeStation.current.value = ""
+                    bikeStatus.current.value = ""
+                    bikeId.current.value = ""
                     console.log(res)
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        }
+                    });
+                    Toast.fire({
+                        icon: "success",
+                        title: "Bikes was updated successfully"
+                    });
                 }
             )
             .catch(error => {
+                button_submit.innerHTML = "Save"
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
                 console.log(error)
             })
     }
@@ -207,11 +261,11 @@ export default function Bikes() {
                                                         <td className='text-uppercase'>{val.BikeCode ?? "N/A"}</td>
                                                         <td className=''><div className="bike_status text-capitalize"><div className="dot"></div>{val.status}</div></td>
                                                         <td className='text-capitalize'>{val.station}</td>
-                                                        <td><div className="table_act">
+                                                        <td><div className="table_act" onClick={() => setSingleBike(val.BikeCode, val.station, val.status, val._id)}>
                                                             <div class="dropdown">
                                                                 <i class="fa-solid fa-ellipsis" data-bs-toggle="dropdown"></i>
                                                                 <ul class="dropdown-menu bg-light">
-                                                                    <li><h5 class="dropdown-header ft mb-1 text-muted">Edit</h5></li>
+                                                                    <li data-bs-toggle="modal" data-bs-target="#editBikeModal"><h5 class="dropdown-header ft mb-1 text-muted">Edit</h5></li>
                                                                     <li><h5 class="dropdown-header ft mb-1 text-muted">Change Status</h5></li>
                                                                     <hr />
                                                                     <li onClick={() => deleteBike(val._id)}><h5 class="dropdown-header mt-3 ft mb-3 btn text-white mx-2 btn-danger">Delete Bike</h5></li>
@@ -232,7 +286,7 @@ export default function Bikes() {
                 </div>
             </div>
 
-            <div class="modal fade" id="createBikeModal">
+            <div class="modal fade bike_modal" id="createBikeModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
 
@@ -267,6 +321,43 @@ export default function Bikes() {
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade bike_modal" id="editBikeModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+
+                        <div class="modal-header">
+                            <div>
+                                <h6 class="modal-title">Edit Bike</h6>
+                                <p className="text-muted ft">Change the details of the bike to add it to the inventory.</p>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+
+                        <div class="modal-body">
+                            <label htmlFor="">Bike ID</label>
+                            <input onChange={e => setbike_id(e.target.value)} ref={bikeId} className='createBikeInput' type="text" placeholder='Enter bike ID' value={bike_id} />
+
+                            <label htmlFor="">Bike Status</label>
+                            <input onChange={e => setbike_status(e.target.value)} ref={bikeStatus} className='createBikeInput' type="text" placeholder='Enter bike status' value={bike_status} />
+
+                            <label htmlFor="">Bike Station</label>
+                            <input onChange={e => setbike_station(e.target.value)} ref={bikeStation} className='createBikeInput' type="text" placeholder='Enter bike station' value={bike_station} />
+                            <p className="ft errors_p d-none text-danger mt-2">* All field must be provided</p>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn px-4 ft btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                            <button onClick={EditBike} type="button" class="btn btn-success button_submit2 bg ft text-white px-4">Update</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     )
 }
