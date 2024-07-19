@@ -9,6 +9,7 @@ import { CookiesProvider, useCookies } from "react-cookie";
 import Cookies from 'js-cookie';
 import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import { useTranslation } from 'react-i18next';
 
 export default function Dashboard() {
     document.title = 'Admin Panel | Dashboard';
@@ -16,6 +17,7 @@ export default function Dashboard() {
     const [users, setUsers] = useState([])
     const [loading, setloading] = useState(true)
     const [cookie, setCookie, removeCookie] = useCookies("")
+    const { t, i18n } = useTranslation();
 
     if (!cookie.user) {
         window.location.href = "/"
@@ -39,7 +41,7 @@ export default function Dashboard() {
         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         datasets: [
             {
-                label: 'Number of Rentals',
+                label: `${t("dashboard")}`,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
@@ -124,32 +126,32 @@ export default function Dashboard() {
 
                     {!loading &&
                         <div className="main_">
-                            <h4 className="fw-bold mt-3">Dashboard</h4>
+                            <h4 className="fw-bold mt-3">{t("dashboard")}</h4>
 
                             <div className="d-flex justify-content-evenly mt-3">
                                 <div className="box">
-                                    <p className="text-muted ft">Total Bikes</p>
+                                    <p className="text-muted ft">{t("total_bike")}</p>
                                     <div className="icon">
                                         <i class="fa-solid fa-motorcycle"></i>
                                     </div>
                                     <h4 className="fw-bold">{bikes.length}</h4>
                                 </div>
                                 <div className="box">
-                                    <p className="text-muted ft">Total Users</p>
+                                    <p className="text-muted ft">{t("total_user")}</p>
                                     <div className="icon">
                                         <i class="fa-solid fa-users"></i>
                                     </div>
                                     <h4 className="fw-bold">{users.length}</h4>
                                 </div>
                                 <div className="box">
-                                    <p className="text-muted ft">Active Bikes</p>
+                                    <p className="text-muted ft">{t("active_bike")}</p>
                                     <div className="icon">
                                         <i class="fa-solid fa-motorcycle"></i>
                                     </div>
                                     <h4 className="fw-bold">0</h4>
                                 </div>
                                 <div className="box">
-                                    <p className="text-muted ft">Active Rentals</p>
+                                    <p className="text-muted ft">{t("active_rental")}</p>
                                     <div className="icon">
                                         <i class="fa-solid fa-person-biking"></i>
                                     </div>

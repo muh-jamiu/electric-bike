@@ -2,10 +2,12 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { CookiesProvider, useCookies, } from "react-cookie";
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 export default function NavBar() {
     const [logOut, setlogout, removeLogout] = useCookies(["user"])
     const user_data = JSON.parse(Cookies.get('user'))
+    const { t, i18n } = useTranslation();
 
     const logout = () => {
         Swal.fire({
@@ -34,7 +36,7 @@ export default function NavBar() {
         <div className="header_ d-flex justify-content-between">
         <div className="input-group">
             <span className="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input type="text" className="form-control" placeholder="Search here..." />
+            <input type="text" className="form-control" placeholder={t("search")} />
         </div>
         <div className="d-flex icons">
             <i className="fa-regular btn fa-bell mt-1"></i>
