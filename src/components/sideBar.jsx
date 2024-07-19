@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from "../../public/img/dash_logo.png"
+import { useTranslation } from 'react-i18next';
+
 
 export default function SideBar({isAuthenticated}) {
+  const { t, i18n } = useTranslation();
+
     useEffect(() => {
         var side_link = document.querySelectorAll(".side_link .link")
         var links = document.querySelectorAll(".side_link")
@@ -41,25 +45,25 @@ export default function SideBar({isAuthenticated}) {
 
                     <div className="links_ mt-3">
                         <li className="list-unstyled side_link"><Link to="/admin-panel" className="text-decoration-none link">
-                            <i class="fa-solid fa-chart-line"></i> Dashboard
+                            <i class="fa-solid fa-chart-line"></i> {t("dashboard")}
                         </Link></li>
                         <li className="list-unstyled side_link"><Link to="/bike-inventory" className="text-decoration-none link">
-                            <i class="fa-solid fa-motorcycle"></i> Bike Inventory
+                            <i class="fa-solid fa-motorcycle"></i> {t("bikes")}
                         </Link></li>
                         <li className="list-unstyled side_link"><Link to="/bike-rentals" className="text-decoration-none link">
-                            <i class="fa-solid fa-person-biking"></i> Bike Rentals
+                            <i class="fa-solid fa-person-biking"></i> {t("rentals")}
                         </Link></li>
                         <li className="list-unstyled side_link"><Link to="/user-management" className="text-decoration-none link">
-                            <i class="fa-solid fa-users"></i> User Management
+                            <i class="fa-solid fa-users"></i> {t("users")}
                         </Link></li>
                         <li className="list-unstyled side_link"><Link to="/payments" className="text-decoration-none link">
-                            <i class="fa-solid fa-cash-register"></i> Payments
+                            <i class="fa-solid fa-cash-register"></i> {t("payment")}
                         </Link></li>
                         <li className="list-unstyled side_link"><Link to="/notifications" className="text-decoration-none link">
-                            <i class="fa-regular fa-bell"></i> Notifications
+                            <i class="fa-regular fa-bell"></i> {t("notification")}
                         </Link></li>
                         <li className="list-unstyled side_link"><Link to="/settings" className="text-decoration-none link">
-                            <i class="fa-solid fa-gears"></i> Settings
+                            <i class="fa-solid fa-gears"></i> {t("settings")}
                         </Link></li>
                     </div>
                 </div>

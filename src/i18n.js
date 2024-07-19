@@ -8,6 +8,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   en: {
     translation: {
+      users: "User Management",
+      rentals: "Bike Rentals",
+      bikes: "Bike Inventory",
       search: "Search here",
       no_rental: "Number of rentals",
       active_rental: "Active Rentals",
@@ -24,11 +27,20 @@ const resources = {
       welcome_to: "Welcome to",
       perform: "Perform several actions like tracking inventory, managing rentals, scheduling maintenance and monitoring transactions",
       welcome: "Login",
-      description: "Log in to the admin portal by putting in the correct details. If you have trouble logging in, please reach out to the IT support team."
+      description: "Log in to the admin portal by putting in the correct details. If you have trouble logging in, please reach out to the IT support team.",
+      payment : "Payment",
+      notification: "Notifications",
+      settings: "Settings",
     }
   },
   it: {
     translation: {
+      settings: "Impostazioni",
+      notification: "Notifiche",
+      payment : "Pagamenti",
+      users: "Gestione utenti",
+      rentals: "Noleggi biciclette",
+      bikes: "Inventario biciclette",
       search: "cerca qui",
       no_rental: "numero di noleggi",
       active_rental: "Noleggi attivi",
