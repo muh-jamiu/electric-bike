@@ -17,6 +17,9 @@ export default function Bikes() {
     const bikeId = useRef("")
     const bikeStatus = useRef("")
     const bikeStation = useRef("")
+    const c_bikeId = useRef("")
+    const c_bikeStatus = useRef("")
+    const c_bikeStation = useRef("")
 
     if (!cookie.user) {
         window.location.href = "/"
@@ -80,11 +83,11 @@ export default function Bikes() {
     }
 
     const EditBike = () => {
-        if (!bikeId.current.value || !bikeStatus.current.value || !bikeStation.current.value) {
-            var errors_p = document.querySelector(".errors_p")
-            errors_p.classList.remove("d-none")
-            return
-        }
+        // if (!bikeId.current.value || !bikeStatus.current.value || !bikeStation.current.value) {
+        //     var errors_p = document.querySelector(".errors_p")
+        //     errors_p.classList.remove("d-none")
+        //     return
+        // }
 
         var errors_p = document.querySelector(".errors_p")
         errors_p.classList.add("d-none")
@@ -135,8 +138,8 @@ export default function Bikes() {
     }
 
     const createBike = () => {
-        console.log(bikeId.current.value, bikeStatus.current.value, bikeStation.current.value)
-        if (!bikeId.current.value || !bikeStatus.current.value || !bikeStation.current.value) {
+        console.log(c_bikeId.current.value, c_bikeStatus.current.value, c_bikeStation.current.value)
+        if (!c_bikeId.current.value || !c_bikeStatus.current.value || !c_bikeStation.current.value) {
             var errors_p = document.querySelector(".errors_p")
             errors_p.classList.remove("d-none")
             return
@@ -149,9 +152,9 @@ export default function Bikes() {
         button_submit.innerHTML = `<div class="spinner-border spinner-border-sm text-white"></div>`
 
         axios.post("/bike/create", {
-            BikeCode: bikeId.current.value,
-            status: bikeStatus.current.value,
-            station: bikeStation.current.value,
+            BikeCode: c_bikeId.current.value,
+            status: c_bikeStatus.current.value,
+            station: c_bikeStation.current.value,
         })
             .then(
                 res => {
@@ -302,13 +305,13 @@ export default function Bikes() {
 
                         <div class="modal-body">
                             <label htmlFor="">Bike ID</label>
-                            <input ref={bikeId} className='createBikeInput' type="text" placeholder='Enter bike ID' />
+                            <input ref={c_bikeId} className='createBikeInput' type="text" placeholder='Enter bike ID' />
 
                             <label htmlFor="">Bike Status</label>
-                            <input ref={bikeStatus} className='createBikeInput' type="text" placeholder='Enter bike status' />
+                            <input ref={c_bikeStatus} className='createBikeInput' type="text" placeholder='Enter bike status' />
 
                             <label htmlFor="">Bike Station</label>
-                            <input ref={bikeStation} className='createBikeInput' type="text" placeholder='Enter bike station' />
+                            <input ref={c_bikeStation} className='createBikeInput' type="text" placeholder='Enter bike station' />
                             <p className="ft errors_p d-none text-danger mt-2">* All field must be provided</p>
                         </div>
 
