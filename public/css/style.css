@@ -406,3 +406,66 @@ td{
 .notFound p{
     color: rgb(92, 92, 92);
 }
+
+.settings__ ._box{
+    background-color: white;
+    border: 1px solid rgba(128, 128, 128, 0.168);
+    padding: 1em;
+    margin-bottom: 1.5em;
+    /* height: 150px; */
+    border-radius: 6px;
+    width: 300px;
+}
+
+.settings__ ._box:hover{
+    cursor: pointer;
+}
+
+.settings__ .iconic{
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    width: 35px;
+    height: 35px;
+    padding: .1em;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.settings__ .form__{
+    background-color: white;
+    padding: 1em;
+    border-radius: 16px;
+}
+
+.settings__ .form__ div{
+    width: 100%;
+    /* margin-bottom: 1em; */
+}
+
+.export__{
+    background-color: #6b803726;
+    border: none !important;
+    color: #6B8037;
+}
+
+.settings__ .form__  label{
+    display: block;
+    font-size: 12px;
+}
+
+.settings__ .form__  input::placeholder{
+    font-size: 12px;
+}
+
+.settings__ .form__  input{
+    width: 80%;
+    outline: none;
+    padding: .7em;
+    padding-left: 0em;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.settings__ .form__ .d-flex{
+    justify-content: space-between;
+}

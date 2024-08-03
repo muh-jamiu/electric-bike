@@ -8,6 +8,8 @@ import Rentals from './pages/rentals'
 import Payments from './pages/payments'
 import Notifications from './pages/notifications'
 import Settings from './pages/settings'
+import AccountSetting from './pages/acct_settings'
+import Team from './pages/team'
 import AuthProvider from './utils/Context'
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
             <Route element={<Payments/>} path='/payments'/>
             <Route element={<Notifications/>} path='/notifications'/>
             <Route element={<Settings/>} path='/settings'/>
+            <Route element={<Team/>} path='/team'/>
+            <Route element={<AccountSetting/>} path='/account-settings'/>
             <Route element={<NotFound/>} path="*"/>
           </Routes>
       </AuthProvider>
